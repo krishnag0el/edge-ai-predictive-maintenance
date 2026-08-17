@@ -21,21 +21,23 @@ x = np.sin(2 * np.pi * f1 * t) + 0.5 * np.sin(2 * np.pi * f2 * t)
 # Perform FFT
 X = np.fft.fft(x)
 
-# Calculate magnitude and normalize
+# Two-sided magnitude spectrum
 magnitude = np.abs(X) / N
+
+# Single-sided spectrum
+magnitude = magnitude[:N // 2]
+magnitude[1:] = 2 * magnitude[1:]
 
 # Frequency axis
 frequencies = np.fft.fftfreq(N, 1 / fs)
-
-# Keep positive frequencies
-positive = frequencies >= 0
+frequencies = frequencies[:N // 2]
 
 # Plot
-plt.plot(frequencies[positive], magnitude[positive])
+plt.plot(frequencies, magnitude)
 
 plt.xlabel("Frequency (Hz)")
 plt.ylabel("Amplitude")
-plt.title("Normalized FFT Spectrum")
+plt.title("Single-Sided FFT Spectrum")
 plt.grid()
 
 plt.savefig("fft_spectrum_normalized.png",
