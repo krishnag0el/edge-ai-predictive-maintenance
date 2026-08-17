@@ -21,22 +21,26 @@ x = np.sin(2 * np.pi * f1 * t) + 0.5 * np.sin(2 * np.pi * f2 * t)
 # Perform FFT
 X = np.fft.fft(x)
 
-# Calculate magnitude
-magnitude = np.abs(X)
+# Calculate magnitude and normalize
+magnitude = np.abs(X) / N
 
 # Frequency axis
 frequencies = np.fft.fftfreq(N, 1 / fs)
 
-# Plot only positive frequencies
+# Keep positive frequencies
 positive = frequencies >= 0
 
+# Plot
 plt.plot(frequencies[positive], magnitude[positive])
 
 plt.xlabel("Frequency (Hz)")
-plt.ylabel("Magnitude")
-plt.title("FFT of Two-Frequency Signal")
+plt.ylabel("Amplitude")
+plt.title("Normalized FFT Spectrum")
 plt.grid()
 
-plt.savefig("fft_spectrum.png", dpi=300, bbox_inches="tight")
+plt.savefig("fft_spectrum_normalized.png",
+            dpi=300,
+            bbox_inches="tight")
 
 plt.show()
+
