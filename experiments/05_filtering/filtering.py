@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import spicy.signal
-import butter,filtfilt
+from spicy.signal import butter,filtfilt
 fs=1000
 duration=1
 N=int(duration*fs)
