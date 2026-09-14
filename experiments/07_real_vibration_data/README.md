@@ -131,12 +131,54 @@ compared with this baseline.
 
 ---
 
+## Frequency Peak Analysis
+
+The FFT spectrum was further analyzed using automated peak
+detection.
+
+Instead of manually identifying peaks from the plot, the
+`scipy.signal.find_peaks` method was used to identify prominent
+frequency components.
+
+The analysis was limited to frequencies below 300 Hz for the
+initial low-frequency investigation.
+
+The approximate shaft speed for this operating condition is:
+
+`1772 RPM`
+
+which corresponds to an approximate rotational frequency of:
+
+`29.53 Hz`
+
+The detected peaks are treated as vibration features rather
+than immediately being classified as bearing faults.
+
+---
+
+## Engineering Interpretation
+
+The spectrum contains multiple frequency components.
+
+The presence of a frequency peak alone does not prove that a
+bearing fault exists.
+
+This experiment uses the normal-bearing signal as a baseline.
+Fault diagnosis will require comparison against known faulty
+bearing signals and, where appropriate, comparison with
+theoretical bearing characteristic frequencies.
+
+---
+
 ## Next Step
 
-The next stage is to:
+The next experiment will compare the normal bearing spectrum
+against a known faulty-bearing signal.
 
-1. Identify dominant frequency peaks.
-2. Relate them to machine rotational speed.
-3. Obtain a faulty-bearing dataset.
-4. Compare healthy and faulty spectra.
-5. Extract useful vibration features.
+The comparison will investigate:
+
+- changes in dominant frequency components
+- changes in vibration amplitude
+- frequency-domain features
+- bearing characteristic frequencies
+- potential features for machine-learning models
