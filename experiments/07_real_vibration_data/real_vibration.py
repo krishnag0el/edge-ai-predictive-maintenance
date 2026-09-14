@@ -97,3 +97,21 @@ print(
     f"\nApproximate rotational frequency: "
     f"{rotation_frequency:.2f} Hz"
 )
+
+# 9. Save peak analysis
+import pandas as pd
+
+num_peaks = min(15, len(peak_frequencies))
+
+peak_table = pd.DataFrame({
+    "Rank": range(1, num_peaks + 1),
+    "Frequency_Hz": peak_frequencies[:num_peaks],
+    "Amplitude": peak_amplitudes[:num_peaks]
+})
+
+peak_table.to_csv(
+    "peak_analysis.csv",
+    index=False
+)
+
+print("\nPeak analysis saved to peak_analysis.csv")
