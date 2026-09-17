@@ -115,3 +115,30 @@ peak_table.to_csv(
 )
 
 print("\nPeak analysis saved to peak_analysis.csv")
+
+# 10. Bearing characteristic frequencies
+rpm=1772
+fr=rpm/60
+FTF_multiplier=0.39828
+BPFO_multiplier=3.5848
+BPFI_multiplier=5.4152
+BSF_multiplier=4.7135
+
+FTF=FTF_multiplier*fr
+BPFO=BPFO_multiplier*fr
+BPFI=BPFI_multiplier*fr
+BSF=BSF_multiplier*fr
+
+print(f"Rotational frequency(1X):{fr:.2f} Hz")
+print(f"FTF:{FTF:.2f} Hz")
+print(f"BPFO:{BPFO:.2f} Hz")
+print(f"BPFI:{BPFI:.2f} Hz")
+print(f"BSF:{BSF:.2f} Hz")
+
+import pandas as pd
+bearing_frequencies=pd.DataFrame({"Component":["Rotational frequency (1X)","FTF","BPFO","BPFI","BSF"],
+                                  "Frequency_Hz":[fr,FTF,BPFO,BPFI,BSF]})
+display(bearing_frequencies)
+
+bearing_frequencies.to_csv("bearing_characteristic_frequencies.csv",index=False)
+print("bearing_characteristic_frequencies.csv created")
