@@ -156,6 +156,33 @@ than immediately being classified as bearing faults.
 
 ---
 
+## Bearing Characteristic Frequencies
+
+The Drive End bearing used in the CWRU dataset is a
+6205-2RS JEM SKF deep-groove ball bearing.
+
+The CWRU Bearing Data Center provides characteristic-frequency
+multipliers for this bearing.
+
+For the operating condition used in this experiment:
+
+- Motor speed: 1772 RPM
+- Rotational frequency: approximately 29.53 Hz
+- FTF: approximately 11.76 Hz
+- BPFO: approximately 105.84 Hz
+- BSF: approximately 139.19 Hz
+- BPFI: approximately 159.96 Hz
+
+These theoretical frequencies provide reference points for
+interpreting the measured vibration spectrum.
+
+The presence of a peak near one of these frequencies does not,
+by itself, establish that a bearing fault exists. Fault
+diagnosis will be performed by comparing healthy and known
+faulty datasets.
+
+---
+
 ## Engineering Interpretation
 
 The spectrum contains multiple frequency components.
