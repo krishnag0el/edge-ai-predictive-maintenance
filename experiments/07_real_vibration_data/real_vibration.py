@@ -23,15 +23,6 @@ print("Maximum:", vibration.max())
 print("Mean:", vibration.mean())
 print("Standard deviation:", vibration.std())
 
-print("Signal Statistics")
-print("------------------")
-
-print("Number of samples:", len(vibration))
-print("Minimum:", vibration.min())
-print("Maximum:", vibration.max())
-print("Mean:", vibration.mean())
-print("Standard deviation:", vibration.std())
-
 fs = 12000
 duration = len(vibration) / fs
 
