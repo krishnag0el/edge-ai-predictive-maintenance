@@ -80,3 +80,28 @@ plt.savefig(
 )
 
 plt.show()
+
+plt.figure(figsize=(12, 5))
+
+plt.plot(
+    fault_frequencies,
+    fault_magnitude
+)
+plt.xlim(0, 300)
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Amplitude")
+
+plt.title(
+    "FFT of Faulty Bearing Vibration - Drive End"
+)
+
+plt.grid()
+plt.tight_layout()
+
+plt.savefig(
+    "fault_low_frequency_spectrum.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.show()
