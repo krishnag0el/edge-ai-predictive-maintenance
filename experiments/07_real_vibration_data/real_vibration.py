@@ -332,7 +332,7 @@ display(summary)
 
 import os
 
-files = [
+output_files = [
     "raw_vibration.png",
     "fft_spectrum.png",
     "low_frequency_spectrum.png",
@@ -349,4 +349,5 @@ for file in files:
         print("✓", file)
     else:
         print("✗", file, "NOT FOUND")
-        
+
+print("\nEXP-07 completed successfully.")
