@@ -183,6 +183,23 @@ faulty datasets.
 
 ---
 
+## Bearing Frequency Overlay
+
+The measured FFT spectrum was compared with theoretical bearing
+characteristic frequencies calculated from the approximate
+operating speed.
+
+![Bearing frequency overlay](bearing_frequency_overlay.png)
+
+The theoretical frequencies are used as reference markers.
+Their presence near measured spectral components does not by
+itself indicate a bearing fault.
+
+A reliable fault diagnosis requires comparison with known faulty
+bearing data and additional signal-processing features.
+
+---
+
 ## Engineering Interpretation
 
 The spectrum contains multiple frequency components.
