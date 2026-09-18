@@ -43,3 +43,14 @@ plt.savefig(
 )
 
 plt.show()
+
+N = len(fault_window)
+X_fault = np.fft.fft(fault_window)
+fault_magnitude = np.abs(X_fault) / N
+fault_magnitude = fault_magnitude[:N // 2]
+fault_magnitude[1:] = 2 * fault_magnitude[1:]
+fault_frequencies = np.fft.fftfreq(N,1 / fs)
+fault_frequencies = fault_frequencies[:N // 2]
+
+print("Fault FFT calculated successfully.")
+print("Maximum frequency:", fault_frequencies[-1], "Hz")
