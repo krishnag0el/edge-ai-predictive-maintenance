@@ -18,6 +18,7 @@ print("Maximum:", fault_vibration.max())
 print("Mean:", fault_vibration.mean())
 print("Standard deviation:", fault_vibration.std())
 
+fs=12000
 fault_window=fault_vibraton[:10000]
 fault_time = np.arange(len(fault_window)) / fs
 
