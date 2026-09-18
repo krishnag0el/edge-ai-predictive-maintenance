@@ -1,4 +1,7 @@
 import os
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.io import loadmat
 print("98.mat:", os.path.exists("98.mat"))
 print("106.mat:", os.path.exists("106.mat"))
 fault_data = loadmat("106.mat")
