@@ -261,3 +261,95 @@ plt.savefig(
 )
 
 plt.show()
+
+from scipy.stats import kurtosis
+
+
+def calculate_features(signal):
+
+    mean_value = np.mean(signal)
+
+    standard_deviation = np.std(signal)
+
+    rms_value = np.sqrt(
+        np.mean(signal ** 2)
+    )
+
+    peak_value = np.max(
+        np.abs(signal)
+    )
+
+    peak_to_peak = (
+        np.max(signal)
+        - np.min(signal)
+    )
+
+    crest_factor = (
+        peak_value / rms_value
+    )
+
+    kurtosis_value = kurtosis(
+        signal,
+        fisher=False
+    )
+
+    return {
+        "Mean": mean_value,
+        "Standard_Deviation": standard_deviation,
+        "RMS": rms_value,
+        "Peak_Amplitude": peak_value,
+        "Peak_to_Peak": peak_to_peak,
+        "Crest_Factor": crest_factor,
+        "Kurtosis": kurtosis_value
+    }
+
+
+# Calculate features for normal and faulty signals
+
+normal_features = calculate_features(
+    normal_window
+)
+
+fault_features = calculate_features(
+    fault_window
+)
+
+
+# Create comparison table
+
+feature_table = pd.DataFrame([
+    {
+        "Condition": "Normal",
+        **normal_features
+    },
+    {
+        "Condition": "Inner_Race_Fault",
+        **fault_features
+    }
+])
+
+
+print("\nVibration Feature Comparison")
+print("----------------------------")
+print(feature_table)
+
+feature_table.to_csv(
+    "normal_vs_fault_features.csv",
+    index=False
+)
+
+fault_feature_table = pd.DataFrame([
+    {
+        "Condition": "Inner_Race_Fault",
+        **fault_features
+    }
+])
+
+fault_feature_table.to_csv(
+    "vibration_features.csv",
+    index=False
+)
+
+
+print("\nFeature files saved successfully.")
+print("\nEXP-08 ANALYSIS COMPLETED SUCCESSFULLY")
