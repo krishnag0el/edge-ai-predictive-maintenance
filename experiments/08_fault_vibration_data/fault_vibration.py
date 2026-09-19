@@ -22,7 +22,7 @@ print("Mean:", fault_vibration.mean())
 print("Standard deviation:", fault_vibration.std())
 
 fs=12000
-fault_window=fault_vibraton[:10000]
+fault_window=fault_vibration[:10000]
 fault_time = np.arange(len(fault_window)) / fs
 
 plt.figure(figsize=(12, 4))
@@ -143,4 +143,121 @@ plt.savefig(
     dpi=300,
     bbox_inches="tight"
 )
+plt.show()
+
+from scipy.signal import find_peaks
+import pandas as pd
+
+peaks, properties = find_peaks(
+    fault_magnitude,
+    prominence=0.001
+)
+
+peak_frequencies = fault_frequencies[peaks]
+peak_amplitudes = fault_magnitude[peaks]
+mask = peak_frequencies <= 300
+peak_frequencies = peak_frequencies[mask]
+peak_amplitudes = peak_amplitudes[mask]
+order = np.argsort(peak_amplitudes)[::-1]
+peak_frequencies = peak_frequencies[order]
+peak_amplitudes = peak_amplitudes[order]
+
+num_peaks = min(15, len(peak_frequencies))
+
+peak_table = pd.DataFrame({
+    "Rank": range(1, num_peaks + 1),
+    "Frequency_Hz": peak_frequencies[:num_peaks],
+    "Amplitude": peak_amplitudes[:num_peaks]
+})
+
+print("Fault frequency peaks:")
+print(peak_table)
+
+peak_table.to_csv(
+    "fault_peak_analysis.csv",
+    index=False
+)
+
+print("Peak analysis saved.")
+
+rpm = 1772
+
+rotational_frequency = rpm / 60
+
+FTF_multiplier = 0.39828
+BPFO_multiplier = 3.5848
+BPFI_multiplier = 5.4152
+BSF_multiplier = 4.7135
+
+FTF = FTF_multiplier * rotational_frequency
+BPFO = BPFO_multiplier * rotational_frequency
+BPFI = BPFI_multiplier * rotational_frequency
+BSF = BSF_multiplier * rotational_frequency
+
+print("\nTheoretical Bearing Frequencies")
+print("--------------------------------")
+print(f"1X  = {rotational_frequency:.2f} Hz")
+print(f"FTF = {FTF:.2f} Hz")
+print(f"BPFO = {BPFO:.2f} Hz")
+print(f"BSF = {BSF:.2f} Hz")
+print(f"BPFI = {BPFI:.2f} Hz")
+
+plt.figure(figsize=(12, 5))
+
+plt.plot(
+    fault_frequencies,
+    fault_magnitude,
+    label="Fault FFT"
+)
+
+plt.xlim(0, 300)
+
+plt.axvline(
+    rotational_frequency,
+    linestyle="--",
+    label=f"1X = {rotational_frequency:.2f} Hz"
+)
+
+plt.axvline(
+    FTF,
+    linestyle="--",
+    label=f"FTF = {FTF:.2f} Hz"
+)
+
+plt.axvline(
+    BPFO,
+    linestyle="--",
+    label=f"BPFO = {BPFO:.2f} Hz"
+)
+
+plt.axvline(
+    BSF,
+    linestyle="--",
+    label=f"BSF = {BSF:.2f} Hz"
+)
+
+plt.axvline(
+    BPFI,
+    linestyle="--",
+    label=f"BPFI = {BPFI:.2f} Hz"
+)
+
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Amplitude")
+
+plt.title(
+    "Fault Bearing FFT with Theoretical Bearing Frequencies"
+)
+
+plt.grid(alpha=0.3)
+plt.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "fault_bearing_frequency_overlay.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
 plt.show()
