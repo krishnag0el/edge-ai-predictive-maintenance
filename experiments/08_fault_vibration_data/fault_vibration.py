@@ -108,3 +108,39 @@ plt.savefig(
 )
 
 plt.show()
+
+normal_data = loadmat("98.mat")
+normal_vibration = normal_data["X098_DE_time"].flatten()
+normal_window = normal_vibration[:10000]
+N_normal = len(normal_window)
+X_normal = np.fft.fft(normal_window)
+normal_magnitude = np.abs(X_normal) / N_normal
+normal_magnitude = normal_magnitude[:N_normal // 2]
+normal_magnitude[1:] = 2 * normal_magnitude[1:]
+normal_frequencies = np.fft.fftfreq(N_normal,1 / fs)
+normal_frequencies = normal_frequencies[:N_normal // 2]
+
+plt.figure(figsize=(12, 5))
+plt.plot(
+    normal_frequencies,
+    normal_magnitude,
+    label="Normal Bearing"
+)
+plt.plot(
+    fault_frequencies,
+    fault_magnitude,
+    label="Inner-Race Fault"
+)
+plt.xlim(0, 300)
+plt.xlabel("Frequency (Hz)")
+plt.ylabel("Amplitude")
+plt.title("Normal vs Faulty Bearing FFT Comparison")
+plt.grid(alpha=0.3)
+plt.legend()
+plt.tight_layout()
+plt.savefig(
+    "normal_vs_fault_fft.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+plt.show()
